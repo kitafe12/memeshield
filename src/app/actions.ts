@@ -24,7 +24,7 @@ export async function scanToken(formData: FormData) {
   const cookieStore = await cookies();
   const scansCookie = cookieStore.get('daily_scans');
   const scansCount = scansCookie ? parseInt(scansCookie.value) : 0;
-  const FREE_LIMIT = 100; // Increased for testing
+  const FREE_LIMIT = 3; // Daily free limit
 
   if (scansCount >= FREE_LIMIT) {
     console.log("Limit reached");

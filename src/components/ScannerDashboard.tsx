@@ -40,7 +40,7 @@ export default function ScannerDashboard({ initialScansUsed, isPro }: ScannerDas
             } else if (response.data) {
                 setResult(response.data);
                 // Optimistically update scan count
-                setScansUsed(prev => Math.min(prev + 1, 100));
+                setScansUsed(prev => Math.min(prev + 1, 3));
             }
 
         } catch (e) {
@@ -145,7 +145,7 @@ export default function ScannerDashboard({ initialScansUsed, isPro }: ScannerDas
                             {/* Limit Badge */}
                             <div className="mt-3 flex items-center justify-center lg:justify-start gap-2 text-xs text-muted-foreground">
                                 <div className={cn("w-2 h-2 rounded-full", scansUsed >= 100 ? "bg-red-500" : "bg-green-500")} />
-                                {scansUsed >= 100 ? "Daily Limit Reached" : `${100 - scansUsed} free scans remaining`}
+                                {scansUsed >= 3 ? "Daily Limit Reached" : `${3 - scansUsed} free scans remaining`}
                             </div>
                         </motion.div>
                     </div>
