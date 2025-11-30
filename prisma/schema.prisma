@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ScanHistory {
+  id           String   @id @default(cuid())
+  tokenAddress String
+  chainId      String
+  safetyScore  Int
+  rawJson      String
+  redFlags     String
+  createdAt    DateTime @default(now())
+  userIp       String?
+  userId       String?  // Clerk User ID
+}
+
+model Subscription {
+  id              String   @id @default(cuid())
+  userId          String   @unique // Clerk User ID
+  lemonSqueezyId  String   @unique // Subscription ID from Lemon Squeezy
+  status          String   // active, past_due, etc.
+  renewsAt        DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
