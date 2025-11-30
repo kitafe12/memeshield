@@ -57,7 +57,7 @@ export default function ApiDocsPage() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>• Real-time Honeypot Detection</li>
                             <li>• Cross-chain Support (ETH, SOL, BASE, BSC)</li>
-                            <li>• < 100ms Latency</li>
+                            <li>• &lt; 100ms Latency</li>
                             <li>• Webhook Alerts</li>
                         </ul>
                     </div>
