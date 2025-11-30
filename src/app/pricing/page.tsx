@@ -46,7 +46,7 @@ export default function PricingPage() {
                         </div>
                         <div className="mb-8">
                             <h3 className="text-2xl font-bold mb-2 text-purple-400">Pro Degen</h3>
-                            <div className="text-4xl font-black">$49<span className="text-lg font-medium text-muted-foreground">/mo</span></div>
+                            <div className="text-4xl font-black">9.99€<span className="text-lg font-medium text-muted-foreground">/mo</span></div>
                             <p className="text-muted-foreground mt-4">For serious traders who want an unfair advantage.</p>
                         </div>
                         <ul className="space-y-4 mb-8 flex-1">
