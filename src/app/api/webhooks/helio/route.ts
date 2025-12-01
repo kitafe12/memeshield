@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const headersList = headers();
+        const headersList = await headers();
         const authHeader = headersList.get('authorization');
 
         // 1. Security Check: Verify API Key

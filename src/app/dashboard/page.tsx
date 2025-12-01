@@ -23,11 +23,11 @@ export default async function DashboardPage() {
     }
 
     // Fetch user's personal history
-    const history = await prisma.scanHistory.findMany({
+    const history = (await prisma.scanHistory.findMany({
         where: { userId: userId },
         orderBy: { createdAt: "desc" },
         take: 50,
-    });
+    })) as unknown as ScanHistoryItem[];
 
     // Fetch user's subscription status
     const dbUser = await prisma.user.findUnique({
@@ -79,8 +79,8 @@ export default async function DashboardPage() {
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <StatCard label="Total Scans" value={history.length.toString()} icon={<Shield className="w-6 h-6 text-primary" />} />
-                    <StatCard label="Safe Tokens Found" value={history.filter((h) => h.safetyScore >= 80).length.toString()} icon={<CheckCircle className="w-6 h-6 text-green-500" />} />
-                    <StatCard label="Risky Tokens Found" value={history.filter((h) => h.safetyScore < 50).length.toString()} icon={<AlertTriangle className="w-6 h-6 text-red-500" />} />
+                    <StatCard label="Safe Tokens Found" value={history.filter((h: ScanHistoryItem) => h.safetyScore >= 80).length.toString()} icon={<CheckCircle className="w-6 h-6 text-green-500" />} />
+                    <StatCard label="Risky Tokens Found" value={history.filter((h: ScanHistoryItem) => h.safetyScore < 50).length.toString()} icon={<AlertTriangle className="w-6 h-6 text-red-500" />} />
                 </div>
 
                 {/* History List */}
@@ -96,7 +96,7 @@ export default async function DashboardPage() {
                         </div>
                     ) : (
                         <div className="grid gap-4">
-                            {history.map((scan) => (
+                            {history.map((scan: ScanHistoryItem) => (
                                 <div key={scan.id} className="glass-card p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-colors group">
                                     <div className="flex items-center gap-4">
                                         <div className={cn(

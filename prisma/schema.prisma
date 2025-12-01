@@ -17,20 +17,20 @@ model ScanHistory {
   redFlags     String
   createdAt    DateTime @default(now())
   userIp       String?
-  userId       String?  // Clerk User ID
+  userId       String? // Clerk User ID
 }
 
 model User {
-  id             String   @id @default(cuid())
-  userId         String   @unique // Clerk User ID
-  email          String?  @unique
-  
+  id     String  @id @default(cuid())
+  userId String  @unique // Clerk User ID
+  email  String? @unique
+
   // Payment Fields (Helio)
-  isPro          Boolean  @default(false)
-  planType       String?  // "MONTHLY", "LIFETIME"
-  subscriptionId String?  // Helio Subscription ID
+  isPro          Boolean   @default(false)
+  planType       String? // "MONTHLY", "LIFETIME"
+  subscriptionId String? // Helio Subscription ID
   periodEnd      DateTime? // Expiration date for Monthly
-  
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
