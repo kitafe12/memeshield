@@ -16,10 +16,10 @@ export default async function Home() {
   let isPro = false;
 
   if (userId) {
-    const subscription = await prisma.subscription.findUnique({
+    const user = await prisma.user.findUnique({
       where: { userId },
     });
-    isPro = subscription?.status === 'active';
+    isPro = user?.isPro || false;
   }
 
   return (

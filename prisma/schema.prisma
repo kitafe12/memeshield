@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // Uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Uses direct connection
 }
 
 model ScanHistory {
@@ -19,12 +20,17 @@ model ScanHistory {
   userId       String?  // Clerk User ID
 }
 
-model Subscription {
-  id              String   @id @default(cuid())
-  userId          String   @unique // Clerk User ID
-  lemonSqueezyId  String   @unique // Subscription ID from Lemon Squeezy
-  status          String   // active, past_due, etc.
-  renewsAt        DateTime?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+model User {
+  id             String   @id @default(cuid())
+  userId         String   @unique // Clerk User ID
+  email          String?  @unique
+  
+  // Payment Fields (Helio)
+  isPro          Boolean  @default(false)
+  planType       String?  // "MONTHLY", "LIFETIME"
+  subscriptionId String?  // Helio Subscription ID
+  periodEnd      DateTime? // Expiration date for Monthly
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

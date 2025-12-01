@@ -21,10 +21,10 @@ export default async function DashboardPage() {
     });
 
     // Fetch user's subscription status
-    const subscription = await prisma.subscription.findUnique({
+    const dbUser = await prisma.user.findUnique({
         where: { userId: userId },
     });
-    const isPro = subscription?.status === 'active';
+    const isPro = dbUser?.isPro || false;
 
     return (
         <main className="min-h-screen p-8 pt-24 relative overflow-hidden">
@@ -48,10 +48,6 @@ export default async function DashboardPage() {
                         </div>
                     </div>
 
-
-
-                    // ... (inside component)
-
                     <div className="flex items-center gap-4">
                         <div className={cn(
                             "px-4 py-2 rounded-full border flex items-center gap-2",
@@ -66,16 +62,16 @@ export default async function DashboardPage() {
                 {/* Upgrade Section (Only for Free Users) */}
                 {!isPro && (
                     <UpgradeSection
-                        monthlyUrl={process.env.LEMONSQUEEZY_CHECKOUT_URL}
-                        yearlyUrl={process.env.LEMONSQUEEZY_ANNUAL_CHECKOUT_URL}
+                        monthlyUrl="/pricing"
+                        yearlyUrl="/pricing"
                     />
                 )}
 
                 {/* Stats Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <StatCard label="Total Scans" value={history.length.toString()} icon={<Shield className="w-6 h-6 text-primary" />} />
-                    <StatCard label="Safe Tokens Found" value={history.filter(h => h.safetyScore >= 80).length.toString()} icon={<CheckCircle className="w-6 h-6 text-green-500" />} />
-                    <StatCard label="Risky Tokens Found" value={history.filter(h => h.safetyScore < 50).length.toString()} icon={<AlertTriangle className="w-6 h-6 text-red-500" />} />
+                    <StatCard label="Safe Tokens Found" value={history.filter((h: any) => h.safetyScore >= 80).length.toString()} icon={<CheckCircle className="w-6 h-6 text-green-500" />} />
+                    <StatCard label="Risky Tokens Found" value={history.filter((h: any) => h.safetyScore < 50).length.toString()} icon={<AlertTriangle className="w-6 h-6 text-red-500" />} />
                 </div>
 
                 {/* History List */}
@@ -91,7 +87,7 @@ export default async function DashboardPage() {
                         </div>
                     ) : (
                         <div className="grid gap-4">
-                            {history.map((scan) => (
+                            {history.map((scan: any) => (
                                 <div key={scan.id} className="glass-card p-4 rounded-xl flex items-center justify-between hover:bg-white/5 transition-colors group">
                                     <div className="flex items-center gap-4">
                                         <div className={cn(

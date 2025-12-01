@@ -28,7 +28,7 @@ export default function TermsPage() {
 
                     <h2 className="text-2xl font-semibold text-white mt-8">4. Pro Subscriptions</h2>
                     <p>
-                        Pro features are available via subscription. Payments are processed securely through Lemon Squeezy.
+                        Pro features are available via subscription. Payments are processed securely through Helio (Solana Blockchain).
                         Refunds are handled according to our refund policy.
                     </p>
                 </div>
