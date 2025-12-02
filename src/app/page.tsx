@@ -16,10 +16,15 @@ export default async function Home() {
   let isPro = false;
 
   if (userId) {
-    const user = await prisma.user.findUnique({
-      where: { userId },
-    });
-    isPro = user?.isPro || false;
+    try {
+      const user = await prisma.user.findUnique({
+        where: { userId },
+      });
+      isPro = user?.isPro || false;
+    } catch (error) {
+      console.error("Home Page DB Error:", error);
+      // Fail silently and treat as free user
+    }
   }
 
   return (
