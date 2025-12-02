@@ -17,7 +17,7 @@ export default async function Home() {
 
   if (userId) {
     try {
-      const user = await prisma.user.findUnique({
+      const user = await prisma.user.findFirst({
         where: { userId },
       });
       isPro = user?.isPro || false;

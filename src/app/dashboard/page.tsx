@@ -34,7 +34,7 @@ export default async function DashboardPage() {
         })) as unknown as ScanHistoryItem[];
 
         // Fetch user's subscription status
-        const dbUser = await prisma.user.findUnique({
+        const dbUser = await prisma.user.findFirst({
             where: { userId: userId },
         });
         isPro = dbUser?.isPro || false;
