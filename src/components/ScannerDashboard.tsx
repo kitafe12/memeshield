@@ -227,7 +227,7 @@ export default function ScannerDashboard({ initialScansUsed, isPro }: ScannerDas
                                     {/* Share Button */}
                                     <a
                                         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                                            `🛡️ MemeShield Scan Result\n\nToken: ${result.tokenAddress.slice(0, 6)}...${result.tokenAddress.slice(-4)}\nScore: ${result.score}/100 (${result.riskLevel})\n\nScan yours here: https://memeshield.vercel.app`
+                                            `🛡️ MemeShield Scan Result\n\nToken: ${result.tokenAddress ? `${result.tokenAddress.slice(0, 6)}...${result.tokenAddress.slice(-4)}` : 'Unknown'}\nScore: ${result.score}/100 (${result.riskLevel})\n\nScan yours here: https://memeshield.vercel.app`
                                         )}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
