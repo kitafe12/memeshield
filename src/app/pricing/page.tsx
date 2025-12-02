@@ -6,12 +6,20 @@ export default async function PricingPage() {
     const { userId } = await auth();
 
     // Helper to generate Helio Checkout URL
-    const getHelioUrl = (productId: string | undefined) => {
-        if (!productId) return "#";
+    const getHelioUrl = (productId: string | undefined, fallbackId: string) => {
+        const id = productId || fallbackId;
+        if (!id) return "#";
+
+        // Clean ID (remove quotes if present)
+        const cleanId = id.replace(/['"]+/g, '');
+
         // Encode metadata for Helio
         const meta = encodeURIComponent(JSON.stringify({ userId: userId || "anonymous" }));
-        return `https://hel.io/pay/${productId}?customMetaData=${meta}`;
+        return `https://hel.io/pay/${cleanId}?customMetaData=${meta}`;
     };
+
+    const MONTHLY_ID = "692db24b1232a0a5881a3eea";
+    const LIFETIME_ID = "692db2c823fa2d5165a299c2";
 
     return (
         <main className="min-h-screen bg-black text-white pt-32 pb-20 px-4 sm:px-6 lg:px-8">
@@ -69,7 +77,7 @@ export default async function PricingPage() {
                             <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-purple-400" /> Priority Support</li>
                         </ul>
                         <a
-                            href={getHelioUrl(process.env.HELIO_MONTHLY_PRODUCT_ID)}
+                            href={getHelioUrl(process.env.HELIO_MONTHLY_PRODUCT_ID, MONTHLY_ID)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full py-3 rounded-xl bg-primary hover:bg-primary/90 transition-all text-center font-bold shadow-lg shadow-purple-900/20 flex items-center justify-center gap-2"
@@ -92,7 +100,7 @@ export default async function PricingPage() {
                             <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-yellow-400" /> Private Discord Role</li>
                         </ul>
                         <a
-                            href={getHelioUrl(process.env.HELIO_LIFETIME_PRODUCT_ID)}
+                            href={getHelioUrl(process.env.HELIO_LIFETIME_PRODUCT_ID, LIFETIME_ID)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-full py-3 rounded-xl border border-yellow-500/50 hover:bg-yellow-500/10 text-yellow-400 transition-all text-center font-bold flex items-center justify-center gap-2"
