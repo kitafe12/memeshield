@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 const faqs = [
     {
         question: "Is MemeShield free to use?",
-        answer: "Yes! You get 100 free scans per day. For unlimited scans and advanced features like Sniper Status and Whale Watcher, you can upgrade to our Pro plan."
+        answer: "Yes! You get 3 free scans per day. For unlimited scans and advanced features like Sniper Status and Whale Watcher, you can upgrade to our Pro plan."
     },
     {
         question: "Which chains do you support?",
