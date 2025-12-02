@@ -27,11 +27,13 @@ export default async function DashboardPage() {
     let isPro = false;
 
     try {
+        console.log("Fetching history for user:", userId);
         history = (await prisma.scanHistory.findMany({
             where: { userId: userId },
             orderBy: { createdAt: "desc" },
             take: 50,
         })) as unknown as ScanHistoryItem[];
+        console.log("Found history items:", history.length);
 
         // Fetch user's subscription status
         const dbUser = await prisma.user.findFirst({
