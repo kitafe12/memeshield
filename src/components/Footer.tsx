@@ -1,4 +1,4 @@
-import { Shield, Twitter, Send } from 'lucide-react';
+import { Shield, Twitter, Send, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
     return (
@@ -46,11 +46,14 @@ export default function Footer() {
                     </p>
 
                     <div className="flex items-center gap-4">
-                        <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="https://x.com/memeshield_sol" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                             <Twitter className="w-5 h-5" />
                         </a>
-                        <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                        <a href="https://t.me/memeshield_portal" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                             <Send className="w-5 h-5" />
+                        </a>
+                        <a href="https://discord.gg/memeshield" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                            <MessageCircle className="w-5 h-5" />
                         </a>
                     </div>
                 </div>

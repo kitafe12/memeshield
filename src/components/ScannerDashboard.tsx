@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { scanToken } from '@/app/actions';
 import { ScanResult } from '@/lib/scanner';
-import { Shield, Search, AlertTriangle, CheckCircle, XCircle, Crosshair, Eye } from 'lucide-react';
+import { Shield, Search, AlertTriangle, CheckCircle, XCircle, Crosshair, Eye, Twitter, Share2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import RecentScans from './RecentScans';
@@ -223,6 +223,19 @@ export default function ScannerDashboard({ initialScansUsed, isPro }: ScannerDas
                                             {result.summary}
                                         </p>
                                     </div>
+
+                                    {/* Share Button */}
+                                    <a
+                                        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                                            `🛡️ MemeShield Scan Result\n\nToken: ${result.tokenAddress.slice(0, 6)}...${result.tokenAddress.slice(-4)}\nScore: ${result.score}/100 (${result.riskLevel})\n\nScan yours here: https://memeshield.vercel.app`
+                                        )}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="w-full py-3 rounded-xl bg-[#1DA1F2]/10 hover:bg-[#1DA1F2]/20 border border-[#1DA1F2]/20 text-[#1DA1F2] font-bold flex items-center justify-center gap-2 transition-all"
+                                    >
+                                        <Twitter className="w-5 h-5" />
+                                        Share on X
+                                    </a>
                                 </div>
 
                                 {/* Right Column: Details & Pro Features */}
