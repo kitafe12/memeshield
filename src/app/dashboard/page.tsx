@@ -23,17 +23,25 @@ export default async function DashboardPage() {
     }
 
     // Fetch user's personal history
-    const history = (await prisma.scanHistory.findMany({
-        where: { userId: userId },
-        orderBy: { createdAt: "desc" },
-        take: 50,
-    })) as unknown as ScanHistoryItem[];
+    let history: ScanHistoryItem[] = [];
+    let isPro = false;
 
-    // Fetch user's subscription status
-    const dbUser = await prisma.user.findUnique({
-        where: { userId: userId },
-    });
-    const isPro = dbUser?.isPro || false;
+    try {
+        history = (await prisma.scanHistory.findMany({
+            where: { userId: userId },
+            orderBy: { createdAt: "desc" },
+            take: 50,
+        })) as unknown as ScanHistoryItem[];
+
+        // Fetch user's subscription status
+        const dbUser = await prisma.user.findUnique({
+            where: { userId: userId },
+        });
+        isPro = dbUser?.isPro || false;
+    } catch (error) {
+        console.error("Dashboard DB Error:", error);
+        // We continue rendering with empty history and free plan to avoid crashing
+    }
 
     return (
         <main className="min-h-screen p-8 pt-24 relative overflow-hidden">
