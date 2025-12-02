@@ -31,6 +31,7 @@ export interface SecurityData {
 }
 
 export interface ScanResult {
+    tokenAddress: string;
     score: number;
     riskLevel: 'SAFE' | 'CAUTION' | 'DANGEROUS' | 'SCAM';
     redFlags: string[];
@@ -144,7 +145,7 @@ export async function fetchTokenSecurity(chainId: string, address: string): Prom
             pairAddress: marketData?.pairAddress,
         };
 
-        return calculateSafetyScore(securityData);
+        return calculateSafetyScore(securityData, address);
 
     } catch (error) {
         console.error("Fetch error:", error);
@@ -152,7 +153,7 @@ export async function fetchTokenSecurity(chainId: string, address: string): Prom
     }
 }
 
-export function calculateSafetyScore(data: SecurityData): ScanResult {
+export function calculateSafetyScore(data: SecurityData, tokenAddress: string = ""): ScanResult {
     let score = 100;
     const redFlags: string[] = [];
 
@@ -162,6 +163,7 @@ export function calculateSafetyScore(data: SecurityData): ScanResult {
         score = 0;
         redFlags.push("⛔ KILL SWITCH: Honeypot Detected (User cannot sell)");
         return {
+            tokenAddress,
             score,
             riskLevel: 'SCAM',
             redFlags,
@@ -174,6 +176,7 @@ export function calculateSafetyScore(data: SecurityData): ScanResult {
         score = 0;
         redFlags.push("⛔ KILL SWITCH: Mintable (Dev can print more tokens)");
         return {
+            tokenAddress,
             score,
             riskLevel: 'SCAM',
             redFlags,
@@ -186,6 +189,7 @@ export function calculateSafetyScore(data: SecurityData): ScanResult {
         score = 0;
         redFlags.push("⛔ KILL SWITCH: Proxy Contract (Logic can be changed by dev)");
         return {
+            tokenAddress,
             score,
             riskLevel: 'SCAM',
             redFlags,
@@ -304,6 +308,7 @@ export function calculateSafetyScore(data: SecurityData): ScanResult {
     }
 
     return {
+        tokenAddress,
         score,
         riskLevel,
         redFlags,
